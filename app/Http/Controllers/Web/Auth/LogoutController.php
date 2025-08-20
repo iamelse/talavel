@@ -15,6 +15,6 @@ class LogoutController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('fe.home.index')->with('success', 'You have been logged out.');
+        return redirect()->route('auth.login')->with('success', 'You have been logged out.');
     }
 }

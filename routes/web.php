@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Web\Auth\LoginController;
+use App\Http\Controllers\Web\Auth\LogoutController;
 use App\Http\Controllers\Web\Backend\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,10 @@ Route::prefix('auth')->middleware('is.guest')->group(function () {
 | Admin Routes (Protected by Auth)
 |--------------------------------------------------------------------------
 */
+Route::prefix('auth')->middleware('is.auth')->group(function () {
+    Route::post('/logout', [LogoutController::class, 'logout'])->name('auth.logout');
+});
+
 Route::prefix('admin')->middleware('is.auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('be.dashboard.index');
 });
